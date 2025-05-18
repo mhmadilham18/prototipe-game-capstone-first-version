@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Battle Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="game-container">
+    <div id="player"></div>
+    <div id="enemy"></div>
+    <div id="projectiles"></div>
+  </div>
+  <div id="ui">
+    <div>
+      Player HP: <span id="player-hp">20</span> | SP: <span id="player-sp">10</span>
+    </div>
+    <div>
+      Enemy HP: <span id="enemy-hp">20</span>
+    </div>
+    <button id="skill-btn">Use Skill</button>
+  </div>
+
+  <div id="quiz-container" class="hidden">
+    <p id="quiz-question"></p>
+    <div id="quiz-options"></div>
+  </div>
+
+  <div id="game-over" class="hidden">
+    <p id="game-over-text"></p>
+    <button onclick="location.reload()">Play Again</button>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
