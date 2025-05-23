@@ -18,8 +18,9 @@ let playerY = 180;
 let enemyY = 180;
 let enemyDirection = 1;
 let quizAnswer = "";
-let canUseSkill = true;
-let enemySkillUsed = false;
+let isPlayerBuffed = false;
+let enemySkillCooldown = false;
+let skillPending = false;
 
 const questions = [
   {
@@ -64,7 +65,7 @@ function createProjectile(x, y, direction, isPlayer) {
   const proj = document.createElement("div");
   proj.classList.add("projectile");
   proj.style.top = y + 18 + "px";
-  proj.style.left = x + (isPlayer ? 40 : -10) + "px";
+  proj.style.left = x + "px";
   projectilesContainer.appendChild(proj);
 
   const speed = 5;
@@ -77,7 +78,7 @@ function createProjectile(x, y, direction, isPlayer) {
     } else {
       checkCollision(proj, isPlayer ? player : enemy, () => {
         if (isPlayer) {
-          playerHp -= 5 * (enemySkillUsed ? 1.5 : 1);
+          playerHp -= 5;
           player.classList.add("hit");
           setTimeout(() => player.classList.remove("hit"), 200);
         } else {
@@ -92,18 +93,15 @@ function createProjectile(x, y, direction, isPlayer) {
   }, 30);
 }
 
-function regenSP() {
-  if (playerSp < 10) playerSp += 2;
-  if (playerSp > 10) playerSp = 10;
-  updateUI();
-}
-
 function enemyAttack() {
   createProjectile(550, enemyY, -1, true);
 }
 
 function playerAttack() {
-  createProjectile(10, playerY, 1, false);
+  createProjectile(50, playerY, 1, false);
+  if (isPlayerBuffed) {
+    setTimeout(() => createProjectile(50, playerY, 1, false), 150);
+  }
 }
 
 function checkGameOver() {
@@ -127,9 +125,7 @@ function showQuiz() {
     btn.textContent = opt;
     btn.onclick = () => {
       if (opt === quizAnswer) {
-        enemyHp -= 10;
-        updateUI();
-        checkGameOver();
+        activatePlayerSkill(); // Aktifkan skill jika jawaban benar
       }
       quizContainer.classList.add("hidden");
     };
@@ -137,10 +133,18 @@ function showQuiz() {
   });
 }
 
+function activatePlayerSkill() {
+  isPlayerBuffed = true;
+  setTimeout(() => {
+    isPlayerBuffed = false;
+  }, 5000); // skill aktif 5 detik
+}
+
 skillBtn.addEventListener("click", () => {
-  if (playerSp >= 10 && canUseSkill) {
+  if (playerSp >= 10 && !skillPending) {
     playerSp -= 10;
     updateUI();
+    skillPending = true;
     showQuiz();
   }
 });
@@ -151,16 +155,36 @@ document.addEventListener("keydown", (e) => {
   player.style.top = playerY + "px";
 });
 
+// musuh bergerak dan menyerang, serta skill healing
 setInterval(() => {
   moveEnemy();
   if (Math.random() < 0.05) enemyAttack();
-  regenSP();
-  if (!enemySkillUsed && enemyHp <= 10) {
-    enemySkillUsed = true;
+
+  if (enemyHp <= 12 && !enemySkillCooldown) {
+    enemySkillCooldown = true;
+
+    const healAmount = Math.floor(enemyHp * 0.5);
+    enemyHp = Math.min(enemyHp + healAmount, 20);
+    updateUI();
+
+    console.log(`Enemy healed for ${healAmount} HP`);
+
+    setTimeout(() => {
+      enemySkillCooldown = false;
+    }, 7000);
   }
 }, 100);
 
+// serangan pemain
 setInterval(playerAttack, 1500);
+
+// SP regen: 1 SP per 2 detik
+setInterval(() => {
+  if (playerSp < 10) {
+    playerSp += 1;
+    updateUI();
+  }
+}, 2000);
 
 updateUI();
 player.style.top = playerY + "px";
