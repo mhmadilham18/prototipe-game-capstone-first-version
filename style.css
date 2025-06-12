@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: #1a1a1a;
   color: #fff;
   display: flex;
@@ -12,29 +12,28 @@ body {
 }
 
 #game-wrapper {
-    position: relative;
-    margin-top: 50px;  
-    margin-bottom: 20px;
+  position: relative;
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
 
 #back-btn {
-    position: absolute;
-    top: -42px; 
-    left: 0;
-    background: #c9a46a;  
-    color: #1a1a1a;  
-    font-weight: bold;
-    border: none;
-    padding: 8px 15px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: filter 0.2s;
+  position: absolute;
+  top: -42px;
+  left: 0;
+  background: #c9a46a;
+  color: #1a1a1a;
+  font-weight: bold;
+  border: none;
+  padding: 8px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: filter 0.2s;
 }
-#back-btn:hover{
-    filter: brightness(1.1);
+#back-btn:hover {
+  filter: brightness(1.1);
 }
-
 
 #game-container {
   position: relative;
@@ -48,7 +47,8 @@ body {
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
 }
 
-#player, #enemy {
+#player,
+#enemy {
   width: 80px;
   height: auto;
   position: absolute;
@@ -76,8 +76,13 @@ body {
 }
 
 @keyframes hit-feedback {
-  0%, 100% { filter: brightness(1); }
-  50% { filter: brightness(2) drop-shadow(0 0 5px red); }
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(2) drop-shadow(0 0 5px red);
+  }
 }
 
 #ui-container {
@@ -90,14 +95,15 @@ body {
   border: 2px solid #c9a46a;
 }
 
-.char-ui, #skill-ui {
+.char-ui,
+#skill-ui {
   flex: 1;
   text-align: center;
   padding: 0 20px;
 }
 
 #skill-ui {
-    flex: 1.5;
+  flex: 1.5;
 }
 
 h2 {
@@ -107,15 +113,16 @@ h2 {
   padding-bottom: 5px;
 }
 
-.bar-label{
-    font-size: 14px;
-    color: #ccc;
-    margin-top: 10px;
-    margin-bottom: 3px;
-    text-align: left;
+.bar-label {
+  font-size: 14px;
+  color: #ccc;
+  margin-top: 10px;
+  margin-bottom: 3px;
+  text-align: left;
 }
 
-.hp-bar-container, .sp-bar-container {
+.hp-bar-container,
+.sp-bar-container {
   width: 100%;
   height: 20px;
   background: #444;
@@ -140,37 +147,37 @@ h2 {
 }
 
 #skill-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
 }
 
 .skill-btn {
-    background-color: #4a4a4a;
-    border: 2px solid #c9a46a;
-    color: #fff;
-    padding: 8px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100px;
-    height: 50px;
-    font-size: 12px;
-    transition: background-color 0.3s, transform 0.2s;
-    position: relative;
-    overflow: hidden;
+  background-color: #4a4a4a;
+  border: 2px solid #c9a46a;
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: fit-content;
+  height: 50px;
+  font-size: 12px;
+  transition: background-color 0.3s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
 }
 
 .skill-btn:hover:not(:disabled) {
-    background-color: #6a6a6a;
-    transform: translateY(-2px);
+  background-color: #6a6a6a;
+  transform: translateY(-2px);
 }
 
 .skill-btn:disabled {
-    cursor: not-allowed;
-    background-color: #333;
-    color: #777;
-    border-color: #555;
+  cursor: not-allowed;
+  background-color: #333;
+  color: #777;
+  border-color: #555;
 }
 
 #effect-popup {
@@ -178,19 +185,19 @@ h2 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
-  background-color: rgba(26, 26, 26, 0.9); 
-  color: #ffffff;  
-  border: 3px solid #ffd700;  
-  box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);  
+
+  background-color: rgba(26, 26, 26, 0.9);
+  color: #ffffff;
+  border: 3px solid #ffd700;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
 
   padding: 15px 30px;
   border-radius: 10px;
   font-size: 20px;
   font-weight: bold;
-  z-index: 101;  
+  z-index: 101;
   pointer-events: none;
-  
+
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
 }
@@ -198,7 +205,6 @@ h2 {
 #effect-popup.show {
   opacity: 1;
 }
-
 
 /* Modal Styling */
 .modal-backdrop {
@@ -222,11 +228,12 @@ h2 {
   max-width: 500px;
   text-align: center;
   border: 3px solid #c9a46a;
-  box-shadow: 0 0 30px rgba(0,0,0,0.5);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 }
 
-.modal-content h2, .modal-content h3 {
-    color: #ffd700;
+.modal-content h2,
+.modal-content h3 {
+  color: #ffd700;
 }
 
 #quiz-options button {
@@ -244,24 +251,24 @@ h2 {
 }
 
 #quiz-options button:hover {
-    background-color: #6a6a6a;
+  background-color: #6a6a6a;
 }
 
 #game-over button {
-    padding: 12px 25px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #ffd700;
-    border: none;
-    color: #1a1a1a;
-    border-radius: 5px;
-    font-weight: bold;
-    margin-top: 20px;
-    transition: background-color 0.3s;
+  padding: 12px 25px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #ffd700;
+  border: none;
+  color: #1a1a1a;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-top: 20px;
+  transition: background-color 0.3s;
 }
 
 #game-over button:hover {
-    background-color: #c9a46a;
+  background-color: #c9a46a;
 }
 
 .hidden {
